@@ -10,6 +10,7 @@
  * 3. In the TodoItem component, make it so when the `onChange` event happens, it calls the `handleChange` method and passes the id of the todo into the function
  */
 
+/*
 import React from "react"
 import TodoItem from "./TodoItem"
 import todosData from "./todosData"
@@ -45,6 +46,45 @@ class App extends React.Component {
                 {todoItems}
             </div>
         )    
+    }
+}
+*/
+import React, {Component} from "react"
+
+// https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
+// https://swapi.co/
+// https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-promise-27fc71e77261
+
+
+class App extends Component {
+    constructor() {
+        super()
+        this.state = {
+            loading : false,
+            character: {}
+        }    
+    }
+    
+    componentDidMount() {
+        this.setState({loading:true})
+        fetch("https://my-json-server.typicode.com/aman-leap/swapi/people/1")
+            .then(response => response.json())
+            .then(data => {
+                  console.log(data)
+                this.setState({
+                  loading: false,
+                  character : data
+                })
+            })
+    }
+    
+    render() {
+        return (
+            <div>
+
+                { this.state.loading ? "Loading..." : this.state.character.name}
+            </div>
+        )
     }
 }
 
