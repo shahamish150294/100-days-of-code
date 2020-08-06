@@ -25,7 +25,7 @@ class App extends Component {
       location: "Chicago",
       isVegetarian: false,
       isLactoseFree: false,
-      isDiabetic: false
+      isDiabetic: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,20 +38,36 @@ class App extends Component {
       : this.setState({ [name]: value });
   }
 
+  isAgeValid = () => {
+      var age = this.state.age;
+      var reg = new RegExp('^[0-9]+$');
+      if (reg.test(age) && age > 16 && age < 120) return true;
+      return false;
+  }
+
+  isNameValid = () => { return true}
+
   handleSubmit() {
-      var firstName = "First Name: " + this.state.firstName + "\n";
-      var lastName = "Last Name: " + this.state.lastName + "\n";
-      var age = "Age: " + this.state.age + "\n";
-      var location = "Location: " + this.state.location + "\n";
-      console.log(this.state.isVegetarian);
-      var dietaryRestrictions = [];
-      if (this.state.isVegetarian) dietaryRestrictions.push("Vegetarian")
-      if (this.state.isLactoseFree) dietaryRestrictions.push("Lactose Free")
-      if (this.state.isDiabetic) dietaryRestrictions.push("Diabetic")  
-      var dietaryInfo = "Dietary Restrictions: " + dietaryRestrictions.join(',') + "\n";
-      
-      var completeInfo = firstName + lastName + age + location + dietaryInfo;
-      alert("Submitted: " + completeInfo)
+    var isValidInput = this.isAgeValid() && this.isNameValid();
+    if (!isValidInput) {
+      alert("Invalid Input");
+      return;
+    }
+
+    var firstName = "First Name: " + this.state.firstName + "\n";
+    var lastName = "Last Name: " + this.state.lastName + "\n";
+    var age = "Age: " + this.state.age + "\n";
+    var location = "Location: " + this.state.location + "\n";
+    console.log(this.state.isVegetarian);
+    var dietaryRestrictions = [];
+    if (this.state.isVegetarian) dietaryRestrictions.push("Vegetarian");
+    if (this.state.isLactoseFree) dietaryRestrictions.push("Lactose Free");
+    if (this.state.isDiabetic) dietaryRestrictions.push("Diabetic");
+    var dietaryInfo =
+      "Dietary Restrictions: " + dietaryRestrictions.join(",") + "\n";
+
+    var completeInfo = firstName + lastName + age + location + dietaryInfo;
+    alert("Submitted: " + completeInfo);
   }
 
   render() {
@@ -113,14 +129,46 @@ class App extends Component {
                 <label>Dietary Restrictions: </label>
               </div>
               <div class="rightboxes">
-              <input class="asd" type='checkbox' name="isVegetarian" value={this.state.isVegetarian} id="valuable1" onChange={this.handleChange}/><label class="d_label" for="valuable1"><span></span> Vegetarian</label> 
-              <input class="asd" type='checkbox' name="isDiabetic" value={this.state.isDiabetic} id="valuable2" onChange={this.handleChange}/><label class="d_label"  for="valuable2"><span></span> Diabetic</label> 
-              <input class="asd" type='checkbox' name="isLactoseFree" value={this.state.isLactoseFree} id="valuable3" onChange={this.handleChange}/><label class="d_label"  for="valuable3"><span></span> Lactose Free</label>
+                <input
+                  class="asd"
+                  type="checkbox"
+                  name="isVegetarian"
+                  value={this.state.isVegetarian}
+                  id="valuable1"
+                  onChange={this.handleChange}
+                />
+                <label class="d_label" for="valuable1">
+                  <span></span> Vegetarian
+                </label>
+                <input
+                  class="asd"
+                  type="checkbox"
+                  name="isDiabetic"
+                  value={this.state.isDiabetic}
+                  id="valuable2"
+                  onChange={this.handleChange}
+                />
+                <label class="d_label" for="valuable2">
+                  <span></span> Diabetic
+                </label>
+                <input
+                  class="asd"
+                  type="checkbox"
+                  name="isLactoseFree"
+                  value={this.state.isLactoseFree}
+                  id="valuable3"
+                  onChange={this.handleChange}
+                />
+                <label class="d_label" for="valuable3">
+                  <span></span> Lactose Free
+                </label>
               </div>
             </div>
             <br />
             <br />
-            <button class="btn"><i class="fa fa-send"></i> Submit</button>
+            <button class="btn">
+              <i class="fa fa-send"></i> Submit
+            </button>
           </form>
         </div>
       </main>
